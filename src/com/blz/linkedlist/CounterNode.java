@@ -87,6 +87,39 @@ public class CounterNode {
 		prev_node.next = new_node;
 	}
 
+	/*
+	 * Given a reference (pointer to pointer) to the head of a list and a position,
+	 * deletes the node at the given position
+	 */
+	void pop(int position) {
+		// If linked list is empty
+		if (head == null)
+			return;
+
+		// Store head node
+		Node temp = head;
+
+		// If head needs to be removed
+		if (position == 0) {
+			head = temp.next; // Change head
+			return;
+		}
+
+		// Find previous node of the node to be deleted
+		for (int i = 0; temp != null && i < position - 1; i++)
+			temp = temp.next;
+
+		// If position is more than number of nodes
+		if (temp == null || temp.next == null)
+			return;
+
+		// Node temp->next is the node to be deleted
+		// Store pointer to the next of node to be deleted
+		Node next = temp.next.next;
+
+		temp.next = next; // Unlink the deleted node from list
+	}
+
 	// display() will display all the nodes present in the list
 	public void display() {
 		// Node current will point to head
@@ -115,6 +148,11 @@ public class CounterNode {
 		sList.insertAfter(sList.head, 30);
 
 		// Displays the nodes present in the list
+		System.out.println("\nCreated Linked list is: ");
+		sList.display();
+
+		sList.pop(0);
+		System.out.println("\nLinked List after Deletion : ");
 		sList.display();
 	}
 }
